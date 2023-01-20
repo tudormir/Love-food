@@ -77,15 +77,37 @@ def calculate_surplus_data(sales_row):
     pprint(stock)
     stock_row = stock[-1]
 
-    print(f"stock row: {stock_row}")
-    print(f"sales row: {sales_row}")
+    #print(f"stock row: {stock_row}")
+    #print(f"sales row: {sales_row}")
 
     surplus_data = []
     for stock, sales in zip(stock_row, sales_row):
         surplus = int(stock)-sales
         surplus_data.append(surplus)
-    print(surplus_data)
+   # print(surplus_data)
     return surplus_data
+
+def get_last_5_entries_sales():
+    """
+    Colect collums of data from sales worksheet, collecting 
+    the last entries for each sandwich and return the data
+    as a list of lists. 
+    """
+    sales=SHEET.worksheet("sales")
+    #column = sales.col_values(3)
+    #print(column)
+    columns = []
+    for ind in range(1, 7):
+        column = sales.col_values(ind)
+        columns.append(column[-5:])
+    pprint(columns)
+    
+    
+
+
+
+
+
 
 def update_surplus_worksheet(data):
     """
@@ -118,4 +140,6 @@ def main():
     update_worksheet(new_surplus_data, "surplus")
 
 print("Welcome to Love Sandwiches Data Automation")
-main()
+# main()
+
+get_last_5_entries_sales()

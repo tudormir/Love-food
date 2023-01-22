@@ -3,7 +3,7 @@
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint 
+ 
 SCOPE= [
     "https://www.googleapis.com/auth/spreadsheets",
      "https://www.googleapis.com/auth/drive.file",
@@ -28,16 +28,16 @@ def get_sales_data():
     """
     while True:
 
-        print("Please enter sales data from the last market.")
-        print("Data should be six numbers, separated by commas.")
+        print("Please enter sales data from the last market. \n")
+        print("Data should be six numbers, separated by commas. \n")
         print ("example: 10,20,30,40,50,60\n")
 
-        data_str=input("Enter your data here: ")
+        data_str=input("Enter your data here: \n")
 
         sales_data = data_str.split(",")
 
         if validate_data(sales_data):
-            print("Data is valid!")
+            print("Data is valid! \n")
             break
     print(sales_data)
     return sales_data    
@@ -48,7 +48,7 @@ def validate_data(values):
     Raises ValueError if string cannot be converted into int,
     or if there aren't exactly 6 values.
     """
-    print(values)
+    #print(values)
     try:
         [int(value) for value in values]
         if len(values)!=6:
@@ -74,7 +74,7 @@ def calculate_surplus_data(sales_row):
     """
     print("Calculating surplus data...\n")
     stock = SHEET.worksheet("stock").get_all_values()
-    pprint(stock)
+    
     stock_row = stock[-1]
 
     #print(f"stock row: {stock_row}")
@@ -147,19 +147,19 @@ def main():
     Run all program functions
     """
     data = get_sales_data()
-    print(data)
+    #print(data)
     sales_data=[int(num) for num in data]
    # update_sales_worksheet(sales_data)
     update_worksheet(sales_data, "sales")
     new_surplus_data = calculate_surplus_data(sales_data)
-    print(new_surplus_data)
+    #print(new_surplus_data)
     #update_surplus_worksheet(new_surplus_data)
     update_worksheet(new_surplus_data, "surplus")
     sales_columns = get_last_5_entries_sales()
     stock_data = calculate_stock_data(sales_columns)
     update_worksheet(stock_data, "stock")
 
-print("Welcome to Love Sandwiches Data Automation")
+print("Welcome to Love Sandwiches Data Automation \n")
 main()
 
 
